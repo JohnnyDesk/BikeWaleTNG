@@ -4,6 +4,7 @@
   <test thread-count="5" name="Test">
     <classes>
       <class name="com.teststeps.Browse"/>
+      <class name="com.backend.Config"></class>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
