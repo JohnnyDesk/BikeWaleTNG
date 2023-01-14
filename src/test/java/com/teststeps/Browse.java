@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 public class Browse {
 
-	public static RemoteWebDriver driver = null;
+	public RemoteWebDriver driver = null;
 
 	@BeforeMethod
 	public void launchBrowser() {
@@ -28,9 +28,8 @@ public class Browse {
 		driver.quit();
 	}
 
-//	1st Test Case
-	@Test
-	public void m2() {
+	@Test(description = "TC_BF_002")
+	public void toVerifyIfCorrectBrandBikesAreDisplayed() {
 
 //		Click on Brand Tab
 		driver.findElement(By.xpath("//h3[text()='Brand']"));
@@ -54,6 +53,11 @@ public class Browse {
 
 		}
 
+	}
+	
+	@Test(description = "TC_BF_003")
+	public void toVerifyIfCorrectPriceBikesAreShown() {
+		
 	}
 
 }
