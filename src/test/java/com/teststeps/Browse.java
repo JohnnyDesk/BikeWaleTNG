@@ -25,7 +25,7 @@ public class Browse {
 	@AfterMethod
 	private void closeBrowser() {
 		System.out.println("after method has been called");
-		driver.quit();
+//		driver.quit();
 	}
 
 	@Test(description = "TC_BF_002")
@@ -57,6 +57,12 @@ public class Browse {
 	
 	@Test(description = "TC_BF_003")
 	public void toVerifyIfCorrectPriceBikesAreShown() {
+		
+//		Click on Budget Tab
+		driver.findElement(By.xpath("//h3[text()='Budget']")).click();
+//		Click on Under 2 Lakh
+		driver.findElement(By.xpath("//span[text()='Under ₹2 lakh']")).click();
+		
 		
 	}
 

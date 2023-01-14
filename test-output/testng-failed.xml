@@ -6,7 +6,7 @@
       <class name="com.teststeps.Browse">
         <methods>
           <include name="closeBrowser"/>
-          <include name="m2"/>
+          <include name="toVerifyIfCorrectPriceBikesAreShown"/>
           <include name="launchBrowser"/>
         </methods>
       </class> <!-- com.teststeps.Browse -->
