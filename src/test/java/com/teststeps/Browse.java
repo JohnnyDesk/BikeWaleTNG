@@ -1,11 +1,14 @@
 package com.teststeps;
 
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -25,7 +28,7 @@ public class Browse {
 	@AfterMethod
 	private void closeBrowser() {
 		System.out.println("after method has been called");
-//		driver.quit();
+		driver.quit();
 	}
 
 	@Test(description = "TC_BF_002")
@@ -54,16 +57,57 @@ public class Browse {
 		}
 
 	}
-	
+
 	@Test(description = "TC_BF_003")
 	public void toVerifyIfCorrectPriceBikesAreShown() {
-		
+
 //		Click on Budget Tab
 		driver.findElement(By.xpath("//h3[text()='Budget']")).click();
 //		Click on Under 2 Lakh
 		driver.findElement(By.xpath("//span[text()='Under ₹2 lakh']")).click();
+
+//		Click on Load more
+		for (int i = 1; i <= 5; i++) {
+
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait.pollingEvery(Duration.ofMillis(1500));
+			WebElement loadmore = driver.findElement(By.xpath("//span[contains(text(),'Load More')]"));
+			wait.until(ExpectedConditions.elementToBeClickable(loadmore));
+			driver.executeScript("window.scrollBy(0,600)");
+			loadmore.click();
+
+		}
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+
+		}
+
+//		Get Prices
+		List<WebElement> prices = driver.findElements(By.xpath("//span[@class=\"font18\"]"));
+//		Iterate
+		Iterator<WebElement> itr = prices.iterator();
 		
+		int count = 0;
+		boolean b = true;
 		
+		while (itr.hasNext()) {
+
+			String price = itr.next().getText();
+			String formatprice = price.replace(",", "");
+			int i = Integer.parseInt(formatprice);
+			count++;
+			if (i < 200000) {
+				System.out.println(count + "\t" + i);
+			} else {
+				b = false;
+			}
+		}
+
+		if (b == false)
+			System.out.println("Entry No. " + count + " has price more than 2 lakh");
+
 	}
 
 }
