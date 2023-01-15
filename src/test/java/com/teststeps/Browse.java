@@ -3,11 +3,17 @@ package com.teststeps;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.bidi.log.Log;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -17,17 +23,18 @@ import org.testng.annotations.Test;
 public class Browse {
 
 	public RemoteWebDriver driver = null;
+	private final static Logger LOG = Logger.getLogger(Browse.class);
 
 	@BeforeMethod
 	public void launchBrowser() {
-		System.out.println("before method has been called");
+		LOG.info("browser has been launched successfully");
 		driver = new ChromeDriver();
 		driver.get("https://www.bikewale.com");
 	}
 
 	@AfterMethod
 	private void closeBrowser() {
-		System.out.println("after method has been called");
+		LOG.info("browser has been closed successfully");
 		driver.quit();
 	}
 
@@ -53,7 +60,6 @@ public class Browse {
 				b = false;
 			}
 			Assert.assertEquals(b, true);
-
 		}
 
 	}
@@ -69,9 +75,14 @@ public class Browse {
 //		Click on Load more
 		for (int i = 1; i <= 5; i++) {
 
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-			wait.pollingEvery(Duration.ofMillis(1500));
-			WebElement loadmore = driver.findElement(By.xpath("//span[contains(text(),'Load More')]"));
+//			Fluent Wait created
+			FluentWait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(20))
+							.pollingEvery(Duration.ofMillis(1500));
+			
+//			WebElement
+			WebElement loadmore = driver.findElement(By.xpath("//span[contains(text(),'Load More')]"));			
+
+//			Fluent wait used on element
 			wait.until(ExpectedConditions.elementToBeClickable(loadmore));
 			driver.executeScript("window.scrollBy(0,600)");
 			loadmore.click();
@@ -88,10 +99,10 @@ public class Browse {
 		List<WebElement> prices = driver.findElements(By.xpath("//span[@class=\"font18\"]"));
 //		Iterate
 		Iterator<WebElement> itr = prices.iterator();
-		
+
 		int count = 0;
 		boolean b = true;
-		
+
 		while (itr.hasNext()) {
 
 			String price = itr.next().getText();
