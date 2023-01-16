@@ -31,7 +31,7 @@ public class Browse {
 		driver = new ChromeDriver();
 		driver.get("https://www.bikewale.com");
 	}
-
+	
 	@AfterMethod
 	private void closeBrowser() {
 		LOG.info("browser has been closed successfully");
@@ -43,6 +43,8 @@ public class Browse {
 
 //		Click on Brand Tab
 		driver.findElement(By.xpath("//h3[text()='Brand']"));
+//		Click on View More Brands
+		driver.findElement(By.xpath("//span[@class=\"btn-label\"]")).click();
 //		Click on Brand BMW
 		driver.findElement(By.xpath("//span[text()='BMW']")).click();
 //		Get List of bike names
