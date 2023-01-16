@@ -1,5 +1,13 @@
 # Compiled class file
 *.class
+ .classpath
+
+# Test report files
+*.html
+*.css
+*.js
+*.xml
+
 
 # Log file
 *.log
