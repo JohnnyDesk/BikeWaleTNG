@@ -90,13 +90,14 @@ public class Browse {
 			loadmore.click();
 
 		}
-
+		
+//		Sleep
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
-
+			e.printStackTrace();
 		}
-
+		
 //		Get Prices
 		List<WebElement> prices = driver.findElements(By.xpath("//span[@class=\"font18\"]"));
 //		Iterate
