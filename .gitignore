@@ -2,6 +2,11 @@
 *.class
  .classpath
 
+#Folders
+/test-output
+/test-output/*
+
+
 # Test report files
 *.html
 *.css
