@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,7 +29,7 @@ public class Browse {
 		driver = new EdgeDriver();
 		driver.get("https://www.bikewale.com");
 	}
-	
+
 	@AfterMethod
 	private void closeBrowser() {
 		LOG.info("browser has been closed successfully");
@@ -64,7 +65,7 @@ public class Browse {
 	}
 
 	@Test(description = "TC_BF_003")
-	public void toVerifyIfCorrectPriceBikesAreShown() {
+	public void bikesUnder2Lakh() {
 
 //		Click on Budget Tab
 		driver.findElement(By.cssSelector("li[data-tabs='discoverBudget']")).click();
@@ -75,10 +76,10 @@ public class Browse {
 
 //			Fluent Wait created
 			FluentWait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(20))
-							.pollingEvery(Duration.ofMillis(1500));
-			
+					.pollingEvery(Duration.ofMillis(1500));
+
 //			WebElement
-			WebElement loadmore = driver.findElement(By.cssSelector("a#loadMoreBikes"));			
+			WebElement loadmore = driver.findElement(By.cssSelector("a#loadMoreBikes"));
 
 //			Fluent wait used on element
 			wait.until(ExpectedConditions.elementToBeClickable(loadmore));
@@ -86,17 +87,17 @@ public class Browse {
 			loadmore.click();
 
 		}
-		
+
 //		Sleep
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 //		Get Prices
 		List<WebElement> prices = driver.findElements(By.cssSelector("span.inr-lg+span.font18"));
-		
+
 //		Iterate
 		Iterator<WebElement> itr = prices.iterator();
 
@@ -118,6 +119,54 @@ public class Browse {
 
 		if (b == false)
 			System.out.println("Entry No. " + count + " has price more than 2 lakh");
+
+	}
+
+	@Test(description = "TC_BF_004")
+	public void bikesAbove2Lakh() throws InterruptedException {
+
+		driver.findElement(By.cssSelector("li[data-tabs='discoverBudget']")).click();
+		driver.findElement(By.cssSelector("a[title='Best bikes above 2 lakh']")).click();
+
+		WebElement loadmoreBtn = driver.findElement(By.cssSelector("a#loadMoreBikes"));
+
+		while (loadmoreBtn.isDisplayed()) {
+			FluentWait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(20))
+					.pollingEvery(Duration.ofMillis(1500));
+
+//			WebElement
+			loadmoreBtn = driver.findElement(By.cssSelector("a#loadMoreBikes"));
+
+//			Fluent wait used on element
+			wait.until(ExpectedConditions.elementToBeClickable(loadmoreBtn));
+			loadmoreBtn.click();
+			driver.executeScript("window.scrollBy(0,600)");
+		}
+
+		Thread.sleep(3000);
+
+		List<WebElement> prices = driver.findElements(By.cssSelector("span.inr-lg+span.font18"));
+
+		Iterator<WebElement> itr = prices.iterator();
+
+		int count = 0;
+		boolean b = true;
+
+		while (itr.hasNext()) {
+
+			String price = itr.next().getText();
+			String formatprice = price.replace(",", "");
+			int i = Integer.parseInt(formatprice);
+			count++;
+			if (i > 200000) {
+				System.out.println(count + "\t" + i);
+			} else {
+				b = false;
+			}
+		}
+
+		if (b == false)
+			System.out.println("Entry No. " + count + " has price less than 2 lakh");
 
 	}
 
