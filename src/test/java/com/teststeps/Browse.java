@@ -3,17 +3,14 @@ package com.teststeps;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.bidi.log.Log;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -28,7 +25,7 @@ public class Browse {
 	@BeforeMethod
 	public void launchBrowser() {
 		LOG.info("browser has been launched successfully");
-		driver = new ChromeDriver();
+		driver = new EdgeDriver();
 		driver.get("https://www.bikewale.com");
 	}
 	
@@ -42,13 +39,13 @@ public class Browse {
 	public void toVerifyIfCorrectBrandBikesAreDisplayed() {
 
 //		Click on Brand Tab
-		driver.findElement(By.xpath("//h3[text()='Brand']"));
+		driver.findElement(By.cssSelector("li[data-tabs='discoverBrand']")).click();
 //		Click on View More Brands
-		driver.findElement(By.xpath("//span[@class=\"btn-label\"]")).click();
+		driver.findElement(By.cssSelector("span.btn-label")).click();
 //		Click on Brand BMW
-		driver.findElement(By.xpath("//span[text()='BMW']")).click();
+		driver.findElement(By.cssSelector("img[alt='BMW']")).click();
 //		Get List of bike names
-		List<WebElement> bikeNames = driver.findElements(By.xpath("//h3[@class=\"bikeTitle margin-bottom10\"]"));
+		List<WebElement> bikeNames = driver.findElements(By.cssSelector("h3.bikeTitle"));
 //		Iterate List
 		Iterator<WebElement> itr = bikeNames.iterator();
 //		Set to true, if all bikes are BMW brand
@@ -70,10 +67,9 @@ public class Browse {
 	public void toVerifyIfCorrectPriceBikesAreShown() {
 
 //		Click on Budget Tab
-		driver.findElement(By.xpath("//h3[text()='Budget']")).click();
+		driver.findElement(By.cssSelector("li[data-tabs='discoverBudget']")).click();
 //		Click on Under 2 Lakh
-		driver.findElement(By.xpath("//span[text()='Under ₹2 lakh']")).click();
-
+		driver.findElement(By.cssSelector("a[title='Best bikes under 2 lakh']")).click();
 //		Click on Load more
 		for (int i = 1; i <= 5; i++) {
 
@@ -82,7 +78,7 @@ public class Browse {
 							.pollingEvery(Duration.ofMillis(1500));
 			
 //			WebElement
-			WebElement loadmore = driver.findElement(By.xpath("//span[contains(text(),'Load More')]"));			
+			WebElement loadmore = driver.findElement(By.cssSelector("a#loadMoreBikes"));			
 
 //			Fluent wait used on element
 			wait.until(ExpectedConditions.elementToBeClickable(loadmore));
@@ -99,7 +95,8 @@ public class Browse {
 		}
 		
 //		Get Prices
-		List<WebElement> prices = driver.findElements(By.xpath("//span[@class=\"font18\"]"));
+		List<WebElement> prices = driver.findElements(By.cssSelector("span.inr-lg+span.font18"));
+		
 //		Iterate
 		Iterator<WebElement> itr = prices.iterator();
 
