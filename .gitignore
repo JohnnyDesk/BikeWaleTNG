@@ -5,6 +5,11 @@
 #Folders
 /test-output
 /test-output/*
+/src/Log
+/test-output**
+/test-output/**
+**/test-output
+/test-output/**/
 
 
 # Test report files
