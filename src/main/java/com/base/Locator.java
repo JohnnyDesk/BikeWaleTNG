@@ -19,4 +19,6 @@ public interface Locator {
 	String searchBox_HomePage = "css##input#newBikeList";
 	String searchBtn_HomePage = "css##input#btnSearch";
 	String suggestionList = "css##li[data-testing-id='global-search-result-list']";
+	String selectVariant = "css##p#defversion";
+	String changeVariant = "css##div#ddlNewVersionList>ul>li";
 }

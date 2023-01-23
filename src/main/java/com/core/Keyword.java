@@ -2,13 +2,10 @@ package com.core;
 
 import java.awt.Robot;
 import java.awt.AWTException;
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.List;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -19,11 +16,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.base.Locator;
+import com.base.WaitFor;
 import com.exceptions.InvalidBrowserNameException;
+import com.exceptions.InvalidKeyName;
 
 public class Keyword {
 
 	public static RemoteWebDriver driver = null;
+
+	/**
+	 * Used to store Locator type after splitting from locator using locatorSplit
+	 */
+	protected static String locatorType;
+
+	/**
+	 * Used to store Locator value after splitting from locator using locatorSplit
+	 */
+	protected static String locatorValue;
 
 	/**
 	 * This keyword helps launch a browser instance. You can choose to launch any
@@ -73,7 +82,7 @@ public class Keyword {
 	}
 
 	/**
-	 * Keyword to launch a specific URL
+	 * Keyword to launch Web-Application/Website
 	 * 
 	 * @param url
 	 * @author Sandesh
@@ -83,18 +92,55 @@ public class Keyword {
 	}
 
 	/**
-	 * This keyword splits Locators from Locator Interface
+	 * Used for clicking on WebElements
+	 * 
+	 * @param locator of WebElement from Locator Interface
 	 * 
 	 * @author Sandesh
 	 */
 	public static void clickOn(String locator) {
 		getElement(locator).click();
 	}
-
+	
 	/**
-	 * This Keyword is used to Enter text in a particular text field
+	 * Used for clicking on WebElements
+	 * @param WebElement
+	 * @author Sandesh
+	 */
+	public static void clickOn(WebElement element) {
+		
+		driver.findElement(getBy(locatorType)).click();
+	}
+
+	private static By getBy(String locator) {
+		splitLocator(locator);
+
+		By by = null;
+
+		if (locatorType.equals("css")) {
+			by = By.cssSelector(locatorValue);
+		} else if (locatorType.equals("xpath")) {
+			by = By.xpath(locatorValue);
+		} else if (locatorType.equals("id")) {
+			by = By.id(locatorValue);
+		} else if (locatorType.equals("name")) {
+			by = By.name(locatorValue);
+		} else if (locatorType.equals("tagname")) {
+			by = By.tagName(locatorValue);
+		} else if (locatorType.equals("classname")) {
+			by = By.className(locatorValue);
+		} else if (locatorType.equals("linktext")) {
+			by = By.linkText(locatorValue);
+		} else if (locatorType.equals("partiallinktext")) {
+			by = By.partialLinkText(locatorValue);
+		}
+
+		return by;
+	}
+	/**
+	 * Used to Enter text in a particular text field
 	 * 
-	 * @param locator
+	 * @param locator of WebElement from Locator Interface
 	 * @param text
 	 * @author Sandesh
 	 */
@@ -103,16 +149,23 @@ public class Keyword {
 	}
 
 	/**
-	 * This Keyword returns a WebElement by providing a locator from Locator
-	 * interface
+	 * Used to split locator values from Locator Interface
+	 */
+	protected static void splitLocator(String locator) {
+		locatorType = locator.split("##")[0].toLowerCase();
+		locatorValue = locator.split("##")[1];
+	}
+
+	/**
+	 * Returns a WebElement by providing a locator from Locator interface
 	 * 
 	 * @param locator
-	 * @return
+	 * @return A WebElement
 	 * @author Sandesh
 	 */
 	public static WebElement getElement(String locator) {
-		String locatorType = locator.split("##")[0].toLowerCase();
-		String locatorValue = locator.split("##")[1];
+
+		splitLocator(locator);
 
 		if (locatorType.equals("css")) {
 			return driver.findElement(By.cssSelector(locatorValue));
@@ -135,15 +188,14 @@ public class Keyword {
 	}
 
 	/**
-	 * This Keyword Returns a List of WebElements by providing a locator from
-	 * Locator interface
+	 * Returns a List of WebElements by providing a locator from Locator interface
 	 * 
 	 * @param locator
-	 * @return
+	 * @return List of WebElements
 	 */
 	public static List<WebElement> getElements(String locator) {
-		String locatorType = locator.split("##")[0].toLowerCase();
-		String locatorValue = locator.split("##")[1];
+
+		splitLocator(locator);
 
 		if (locatorType.equals("css")) {
 			return driver.findElements(By.cssSelector(locatorValue));
@@ -166,7 +218,8 @@ public class Keyword {
 	}
 
 	/**
-	 * This Keyword returns false if element is not found on page
+	 * Returns false if element is not found in dom
+	 * 
 	 * @param locator
 	 * @return
 	 * @author Sandesh
@@ -176,26 +229,61 @@ public class Keyword {
 		return temp.isEmpty();
 	}
 
-	public static void hitKey(){
+	/**
+	 * Used to Immitate pressing a keyboard key, You can choose to press any
+	 * one of the following keys
+	 * <ol>
+	 * <li> Enter
+	 * <li> Tab
+	 * </ol>
+	 * @author Sandesh
+	 */
+	public static void hitKey(String keyname) {
 		Robot robo = null;
 		try {
 			robo = new Robot();
 		} catch (AWTException e) {
 		}
 
-		robo.keyPress(KeyEvent.VK_ENTER);
-		robo.keyRelease(KeyEvent.VK_ENTER);
+		if (keyname.equalsIgnoreCase("enter")) {
+			robo.keyPress(KeyEvent.VK_ENTER);
+			robo.keyRelease(KeyEvent.VK_ENTER);
+		}else if (keyname.equals("tab")) {
+			robo.keyPress(KeyEvent.VK_TAB);
+			robo.keyRelease(KeyEvent.VK_TAB);
+		}else {
+			throw new InvalidKeyName();
+		}
 	}
-	
+
 	/**
+	 * Keyword to wait for a element
 	 * 
 	 * @param locator
 	 */
 	public static void waitFor(String locator) {
-		String locatorType = locator.split("##")[0].toLowerCase();
-		String locatorValue = locator.split("##")[1];
-		
+		splitLocator(locator);
+
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(locatorValue)));
+		wait.pollingEvery(Duration.ofSeconds(2));
+		if (locatorType.equals("css")) {
+			wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(locatorValue)));
+		} else if (locatorType.equals("xpath")) {
+			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locatorValue)));
+		}
+
 	}
+
+	/**
+	 * Returns a By class instance
+	 * 
+	 * @return
+	 */
+	private static By w2() {
+
+		By by = By.cssSelector(locatorValue);
+
+		return by;
+	}
+
 }
