@@ -7,7 +7,7 @@ import com.core.Keyword;
 
 public class TestBase {
 	
-	@BeforeMethod
+//	@BeforeMethod
 	public void setup() {
 		Keyword.launchBrowser("Edge");
 		Keyword.maximizeBrowser();
