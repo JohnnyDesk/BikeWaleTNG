@@ -5,13 +5,19 @@ import org.testng.annotations.Test;
 import com.base.Locator;
 import com.base.TestBase;
 import com.core.Keyword;
+
+import com.pages.HomePage;
+
 import com.util.TakeAScreenShot;
 
-public class LoginValidation extends TestBase {
 
+public class LoginValidation extends TestBase {
+	HomePage onHomePage = new HomePage();
+	
 	@Test(description = "TC_LP_001", priority = 1)
 	public void toVerifyLoginIsSuccessfulWithValidCredentials() {
 
+		onHomePage.clickOnLoginBtn();
 		Keyword.clickOn(Locator.loginBtn);
 		Keyword.enterText(Locator.enterEmailBox, "skalambe1998@gmail.com");
 		Keyword.enterText(Locator.enterPasswordBox, "Skalambe@1998");
