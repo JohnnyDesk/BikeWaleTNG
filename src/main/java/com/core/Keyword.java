@@ -108,8 +108,7 @@ public class Keyword {
 	 * @author Sandesh
 	 */
 	public static void clickOn(WebElement element) {
-		
-		driver.findElement(getBy(locatorType)).click();
+		element.click();
 	}
 
 	
