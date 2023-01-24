@@ -3,10 +3,12 @@
 	<groupId>Summit</groupId>
 	<artifactId>TestNG_BikeWale</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
 	<build>
 		<plugins>
+
 		<!-- JAVA 1.8 conversion plugin-->
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -22,6 +24,7 @@
 				</configuration>
 			</plugin>
 
+
 			<!-- Surefire Plugin-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -34,9 +37,10 @@
 				</configuration>
 			</plugin>
 			
+
+
 		</plugins>
 	</build>
-
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
@@ -50,7 +54,6 @@
 			<artifactId>selenium-java</artifactId>
 			<version>4.7.2</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -62,6 +65,23 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version> 4.3.1</version>
+			<scope>main</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.ts</groupId>
+			<artifactId>TestCasesCNC</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
+		<dependency>
+			<groupId>ru.yandex.qatools.ashot</groupId>
+			<artifactId>ashot</artifactId>
+			<version>1.5.4</version>
 		</dependency>
 	</dependencies>
 </project>
