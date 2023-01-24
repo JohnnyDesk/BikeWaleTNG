@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import com.base.Locator;
 import com.base.TestBase;
 import com.core.Keyword;
+import com.util.GetLocator;
 
 public class LoginValidation extends TestBase {
 
@@ -26,7 +27,7 @@ public class LoginValidation extends TestBase {
 		Keyword.enterText(Locator.enterPasswordBox, "Skalambe@");
 		Keyword.clickOn(Locator.signInBtn);
 		Assert.assertFalse(Keyword.isElementPresent(Locator.loginBtn));
-
+		
 	}
 	
 	

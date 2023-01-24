@@ -112,31 +112,7 @@ public class Keyword {
 		driver.findElement(getBy(locatorType)).click();
 	}
 
-	private static By getBy(String locator) {
-		splitLocator(locator);
-
-		By by = null;
-
-		if (locatorType.equals("css")) {
-			by = By.cssSelector(locatorValue);
-		} else if (locatorType.equals("xpath")) {
-			by = By.xpath(locatorValue);
-		} else if (locatorType.equals("id")) {
-			by = By.id(locatorValue);
-		} else if (locatorType.equals("name")) {
-			by = By.name(locatorValue);
-		} else if (locatorType.equals("tagname")) {
-			by = By.tagName(locatorValue);
-		} else if (locatorType.equals("classname")) {
-			by = By.className(locatorValue);
-		} else if (locatorType.equals("linktext")) {
-			by = By.linkText(locatorValue);
-		} else if (locatorType.equals("partiallinktext")) {
-			by = By.partialLinkText(locatorValue);
-		}
-
-		return by;
-	}
+	
 	/**
 	 * Used to Enter text in a particular text field
 	 * 
@@ -216,6 +192,39 @@ public class Keyword {
 		}
 		return null;
 	}
+	
+	/**
+	 * Returns a By instance of matching locator type
+	 * 
+	 * @param locator
+	 * @return A By instance of matching locator Type
+	 * @author Sandesh
+	 */
+	protected static By getBy(String locator) {
+		splitLocator(locator);
+
+		By by = null;
+
+		if (locatorType.equals("css")) {
+			by = By.cssSelector(locatorValue);
+		} else if (locatorType.equals("xpath")) {
+			by = By.xpath(locatorValue);
+		} else if (locatorType.equals("id")) {
+			by = By.id(locatorValue);
+		} else if (locatorType.equals("name")) {
+			by = By.name(locatorValue);
+		} else if (locatorType.equals("tagname")) {
+			by = By.tagName(locatorValue);
+		} else if (locatorType.equals("classname")) {
+			by = By.className(locatorValue);
+		} else if (locatorType.equals("linktext")) {
+			by = By.linkText(locatorValue);
+		} else if (locatorType.equals("partiallinktext")) {
+			by = By.partialLinkText(locatorValue);
+		}
+
+		return by;
+	}
 
 	/**
 	 * Returns false if element is not found in dom
@@ -254,36 +263,6 @@ public class Keyword {
 		}else {
 			throw new InvalidKeyName();
 		}
-	}
-
-	/**
-	 * Keyword to wait for a element
-	 * 
-	 * @param locator
-	 */
-	public static void waitFor(String locator) {
-		splitLocator(locator);
-
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait.pollingEvery(Duration.ofSeconds(2));
-		if (locatorType.equals("css")) {
-			wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(locatorValue)));
-		} else if (locatorType.equals("xpath")) {
-			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locatorValue)));
-		}
-
-	}
-
-	/**
-	 * Returns a By class instance
-	 * 
-	 * @return
-	 */
-	private static By w2() {
-
-		By by = By.cssSelector(locatorValue);
-
-		return by;
 	}
 
 }

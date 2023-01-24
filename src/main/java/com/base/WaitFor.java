@@ -56,37 +56,6 @@ public class WaitFor extends Keyword {
 	public static void elementToBeVisible(String locator) {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(getBy(locator)));
 	}
-	/**
-	 * Returns a By instance of matching locator type
-	 * 
-	 * @param locator
-	 * @return A By instance of matching locator Type
-	 * @author Sandesh
-	 */
-	private static By getBy(String locator) {
-		splitLocator(locator);
-
-		By by = null;
-
-		if (locatorType.equals("css")) {
-			by = By.cssSelector(locatorValue);
-		} else if (locatorType.equals("xpath")) {
-			by = By.xpath(locatorValue);
-		} else if (locatorType.equals("id")) {
-			by = By.id(locatorValue);
-		} else if (locatorType.equals("name")) {
-			by = By.name(locatorValue);
-		} else if (locatorType.equals("tagname")) {
-			by = By.tagName(locatorValue);
-		} else if (locatorType.equals("classname")) {
-			by = By.className(locatorValue);
-		} else if (locatorType.equals("linktext")) {
-			by = By.linkText(locatorValue);
-		} else if (locatorType.equals("partiallinktext")) {
-			by = By.partialLinkText(locatorValue);
-		}
-
-		return by;
-	}
+	
 
 }
