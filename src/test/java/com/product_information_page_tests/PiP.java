@@ -59,5 +59,27 @@ public class PiP extends TestBase {
 		}
 		
 	}
+	
+	@Test
+	public void toVerifyClickOnSpecificPriceBracketCorrectPriceBikesAreShown() throws InterruptedException {
+		RemoteWebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.cssSelector("li[data-tabs=\"discoverBudget\"]")).click();    //Under Browse Bikes by Section, Click on Budget Tab
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("a[title=\"Best bikes under 2 lakh\"]")).click(); //click on under 2 lakhs
+		Thread.sleep(2000);
+		
+		
+			
+	}
+
+	
+	
+	
+	
+	
+	
+	
 
 }
