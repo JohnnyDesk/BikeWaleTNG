@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import com.base.Locator;
 import com.base.TestBase;
 import com.core.Keyword;
-import com.util.GetLocator;
+import com.util.TakeAScreenShot;
 
 public class LoginValidation extends TestBase {
 
@@ -15,6 +15,7 @@ public class LoginValidation extends TestBase {
 		Keyword.clickOn(Locator.loginBtn);
 		Keyword.enterText(Locator.enterEmailBox, "skalambe1998@gmail.com");
 		Keyword.enterText(Locator.enterPasswordBox, "Skalambe@1998");
+		TakeAScreenShot.usingAshot();
 		Keyword.clickOn(Locator.signInBtn);
 		Assert.assertTrue(Keyword.isElementPresent(Locator.loginBtn));
 	}
