@@ -4,6 +4,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -29,6 +30,10 @@ public class WaitFor extends Keyword {
 	 */
 	public static void elementToBePresent(String locator) {
 		wait.until(ExpectedConditions.presenceOfElementLocated(getBy(locator)));
+	}
+	
+	public static void elementToBePresent(WebElement element) {
+		wait.until(ExpectedConditions.presenceOfElementLocated((By)element));
 	}
 
 	/**
