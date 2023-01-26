@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.core.Keyword;
 
-public class TestBase {
+public class TestBase extends Keyword{
 	
 	@BeforeMethod
 	public void setup() {

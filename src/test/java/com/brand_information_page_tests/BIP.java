@@ -8,18 +8,18 @@ import com.core.Keyword;
 import com.pages.BrandPage;
 import com.pages.HomePage;
 
-public class BIP extends TestBase{
+public class BIP extends TestBase {
+
 	
 	@Test
-	public void toVerifyBrandPageContainsSameBrandBikes(){
-		HomePage onHomePage = new HomePage(); 
+	public void toVerifyBrandPageContainSameBrandBikes() {
+		HomePage onHomePage = new HomePage();
 		BrandPage fromBrandPage = new BrandPage();
 		
 		onHomePage.clickOnBrandTab();
 		onHomePage.clickOnRoyalEnfield();
-		
-		
-	
+		fromBrandPage.checkBikeNameHas("Royal Enfield");
+
 	}
 
 }

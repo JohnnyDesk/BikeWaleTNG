@@ -1,40 +1,39 @@
 package com.pages;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.base.Locator;
+import com.base.TestBase;
 import com.base.WaitFor;
 import com.core.Keyword;
 
-public class HomePage {
-
-	public HomePage() {
+public class HomePage extends TestBase {
+	
+	public HomePage(){
 		PageFactory.initElements(Keyword.driver, this);
 	}
 
-	/*** ========================================== ***/
+	/*** =================ELEMENTS======================== ***/
 
 	@FindBy(css = "input#newBikeList")
-	public WebElement searchBox_HomePage;
+	public static WebElement searchBox_HomePage;
 
 	@FindBy(css = "div.login-box")
-	public WebElement loginBtn;
+	public static WebElement loginBtn;
 
 	@FindBy(css = "li[data-testing-id='global-search-result-list']")
-	public WebElement suggestionList;
+	public static WebElement suggestionList;
 
 	@FindBy(css = "li#bw-brands")
-	public WebElement brandTab;
+	public static WebElement brandTab;
 
 	@FindBy(css = "img[alt='Royal Enfield bikes']")
-	public WebElement ROYALENFIELD;
+	public static WebElement ROYALENFIELD;
 
-	/*** ========================================== ***/
+	/*** =================METHODS======================== ***/
 
 	public void clickOnSearchBox_HomePage() {
 		Keyword.clickOn(searchBox_HomePage);

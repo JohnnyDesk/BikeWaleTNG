@@ -48,16 +48,17 @@ public class Keyword {
 	 * @author Sandesh
 	 */
 	public static void launchBrowser(String browserName) {
+		
 		browserName = browserName.toLowerCase();
 
 		if (browserName.equals("edge") || browserName.contains("microsoft")) {
-			driver = new EdgeDriver();
+			Keyword.driver = new EdgeDriver();
 		} else if (browserName.equals("chrome") || browserName.contains("google")) {
-			driver = new ChromeDriver();
+			Keyword.driver = new ChromeDriver();
 		} else if (browserName.equals("firefox") || browserName.contains("mozilla")) {
-			driver = new FirefoxDriver();
+			Keyword.driver = new FirefoxDriver();
 		} else if (browserName.equals("safari")) {
-			driver = new SafariDriver();
+			Keyword.driver = new SafariDriver();
 		} else {
 			throw new InvalidBrowserNameException(browserName);
 		}
@@ -69,7 +70,7 @@ public class Keyword {
 	 * @author Sandesh
 	 */
 	public static void quitBrowser() {
-		driver.quit();
+		Keyword.driver.quit();
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class Keyword {
 	 * @author Sandesh
 	 */
 	public static void maximizeBrowser() {
-		driver.manage().window().maximize();
+		Keyword.driver.manage().window().maximize();
 	}
 
 	/**
@@ -88,7 +89,7 @@ public class Keyword {
 	 * @author Sandesh
 	 */
 	public static void launchUrl(String url) {
-		driver.get(url);
+		Keyword.driver.get(url);
 	}
 
 	/**

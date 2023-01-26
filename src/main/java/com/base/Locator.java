@@ -22,6 +22,4 @@ public interface Locator {
 	String selectVariant = "css##p#defversion";
 	String changeVariant = "css##div#ddlNewVersionList>ul>li";
 	
-	
-	public abstract void clickOnBox();
 }

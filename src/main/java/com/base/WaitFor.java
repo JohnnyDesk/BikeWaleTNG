@@ -15,7 +15,6 @@ import com.core.Keyword;
 public class WaitFor extends Keyword {
 
 	static WebDriverWait wait = null;
-	
 
 	static {
 		wait = new WebDriverWait(Keyword.driver, Duration.ofSeconds(20));
