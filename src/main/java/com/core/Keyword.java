@@ -62,6 +62,7 @@ public class Keyword {
 		} else {
 			throw new InvalidBrowserNameException(browserName);
 		}
+		
 	}
 
 	/**
@@ -91,7 +92,17 @@ public class Keyword {
 	public static void launchUrl(String url) {
 		Keyword.driver.get(url);
 	}
-
+	
+	/**
+	 * Helps to scroll Window, provide amount in Pixels
+	 * @param X Axis
+	 * @param Y Axis
+	 * @author Sandesh
+	 */
+	public static void scrollWindowBy(int x, int y) {
+		driver.executeScript("window.scrollBy(arguments[0],arguments[1])",x,y);
+	}
+	
 	/**
 	 * Used for clicking on WebElements
 	 * 
@@ -194,6 +205,17 @@ public class Keyword {
 	}
 	
 	/**
+	 * This keyword will return a List of WebElements by providing it a CSS locator value
+	 * @param locator
+	 * @return
+	 */
+	public static List<WebElement> getElementsList(String locatorvalue) {
+		return driver.findElements(By.cssSelector(locatorvalue));
+	}
+	
+	
+	
+	/**
 	 * Returns a By instance of matching locator type
 	 * 
 	 * @param locator
@@ -227,7 +249,7 @@ public class Keyword {
 	}
 
 	/**
-	 * Returns false if element is not found in dom
+	 * Returns true if element is not found in dom
 	 * 
 	 * @param locator
 	 * @return

@@ -31,6 +31,18 @@ public class WaitFor extends Keyword {
 		wait.until(ExpectedConditions.presenceOfElementLocated(getBy(locator)));
 	}
 	
+	/**
+	 * 
+	 * @param cssvalue
+	 */
+	public static void elementToBeInteractable(String cssvalue) {
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(cssvalue)));
+	}
+	
+	/**
+	 * 
+	 * @param element
+	 */
 	public static void elementToBePresent(WebElement element) {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By)element));
 	}

@@ -27,9 +27,24 @@ public class HomePage extends TestBase {
 	@FindBy(css = "li[data-testing-id='global-search-result-list']")
 	public static WebElement suggestionList;
 
-	@FindBy(css = "li#bw-brands")
+	@FindBy(css = "li[data-tabs='discoverBrand']")
 	public static WebElement brandTab;
-
+	
+	@FindBy(css = "li[data-tabs='discoverBudget']")
+	public static WebElement budgetTab;
+	
+	@FindBy(css = "li[data-tabs='discoverMileage']")
+	public static WebElement displacementTab;
+	
+	@FindBy(css = "a[title='Best bikes under 2 lakh']")
+	public static WebElement under2LakhOption;
+	
+	@FindBy(css = "a[title='Best bikes above 2 lakh']")
+	public static WebElement above2LakhOption;
+	
+	@FindBy(css = "a[title='Best 500cc bikes']")
+	public static WebElement _250cc_500ccOption;
+	
 	@FindBy(css = "img[alt='Royal Enfield bikes']")
 	public static WebElement ROYALENFIELD;
 
@@ -53,6 +68,26 @@ public class HomePage extends TestBase {
 
 	public void clickOnBrandTab() {
 		brandTab.click();
+	}
+	
+	public void clickOnBudgetTab() {
+		budgetTab.click();
+	}
+	
+	public void clickOnDisplacementTab() {
+		displacementTab.click();
+	}
+	
+	public void clickOn250cc_500cc(){
+		_250cc_500ccOption.click();
+	}
+	
+	public void clickOnUnder2Lakh() {
+		under2LakhOption.click();
+	}
+	
+	public void clickOnAbove2Lakh() {
+		above2LakhOption.click();
 	}
 
 	public void clickOnRoyalEnfield() {

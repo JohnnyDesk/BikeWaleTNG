@@ -12,6 +12,7 @@ public class TestBase extends Keyword{
 		Keyword.launchBrowser("Edge");
 		Keyword.maximizeBrowser();
 		Keyword.launchUrl("https://www.bikewale.com");
+		
 	}
 	
 	@AfterMethod
